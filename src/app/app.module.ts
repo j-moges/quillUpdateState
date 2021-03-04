@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Store} from '@ngrx/store';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './app.reducer';
+import { reducers } from './index.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 // import { ComponentsModule } from './app.index.module';
@@ -28,6 +29,7 @@ import { RouterModule } from '@angular/router';
     QuillModule.forRoot(),
     ReactiveFormsModule,
     StoreModule.forRoot({}),
+    StoreModule.forFeature('appState', reducers),
     EffectsModule.forRoot([AppEffects]),
     // ComponentsModule
   ],

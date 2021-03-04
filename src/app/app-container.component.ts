@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import * as fromApp from './app.reducer';
+import * as fromApp from './index.reducer';
 import * as AppActions from './app.actions';
 import { ActivatedRoute } from '@angular/router';
 
@@ -18,7 +18,7 @@ export class AppContainerComponent implements OnInit{
     ngOnInit(){}
 
     constructor (private store: Store<fromApp.State>) {
-        this.getQuillContent$ = store.pipe(select(fromApp.quillContentState));
+        this.getQuillContent$ = store.pipe(select(fromApp.getQuillContentState));
     }
     
     updateState(content){

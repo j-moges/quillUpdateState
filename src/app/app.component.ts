@@ -11,7 +11,7 @@ import { QuillEditorComponent } from 'ngx-quill';
   styleUrls: ['./app.component.scss'],
   host: {}
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'quill-update-state';
 
   quillPlaceholder = 'Enter Body...';
@@ -67,7 +67,9 @@ export class AppComponent {
       console.log(this.reactiveForm.getRawValue());
       //save the cursor position before we lose it when leaving the editor
       // this.bodyCursorPosition = this.quillEditor.getSelection();
-      this.updateQuillContent.emit({bodyText: this.reactiveForm.getRawValue()});
+      const formValues = this.reactiveForm.getRawValue();
+
+      this.updateQuillContent.emit({bodyText: formValues.quillBody});
 
     }
     );
@@ -88,7 +90,11 @@ export class AppComponent {
   }
 
   updateState(){
-    this.updateQuillContent.emit({bodyText: this.reactiveForm.getRawValue()});
+
+    const formValues = this.reactiveForm.getRawValue();
+    this.updateQuillContent.emit({bodyText: formValues.quillBody});
   }
 
+
+  ngOnInit(){}
 }

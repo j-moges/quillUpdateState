@@ -1,3 +1,4 @@
+import { Action, createReducer } from '@ngrx/store';
 import { AppActionTypes, AppActions } from './app.actions';
 
 
@@ -9,38 +10,43 @@ const initialState: State = {
     quillContent: ['initial content']
 }
 
+// const appReducer = createReducer(
+//     initialState,
+//     on(AppActionTypes.UpdateState, state => ({
+//         ...state,
+//     }) {
+//        return {
+//            ...state,
+//            quillContent: newResults
+//        }
+//    })
+// );
+
+// export function reducer(state: State | undefined, action: Action){
+//     return appReducer(state, action);
+// }
+
 export function reducer(
     state = initialState,
     action: AppActions,
 ): State{
     switch (action.type){
 
-        // case AppActionTypes.GetQuillContent: {
-        //     return {
-        //         ...state,
-        //     }
-        // }
-
-        // case AppActionTypes.GetQuillContentComplete: {
-        //     let newResults = Object.assign([], state.quillContent);
-        //      newResults.push(action.payload);
-        //     return {
-        //         ...state,
-        //         quillContent: newResults
-        //     }
-        // }
-
         case AppActionTypes.UpdateState: {
 
              let newResults = Object.assign([], state.quillContent);
-             newResults.push(action.payload);
+             newResults.push(action.payload.bodyText);
 
             return {
                 ...state,
                 quillContent: newResults
             }
         }
+
+        default: {
+            return state;
+        }
     }
 }
 
-export const quillContentState = (state: State) => state.quillContent[state.quillContent?.length - 1];
+export const quillContentState = (state: State) => state?.quillContent[(state?.quillContent?.length) - 1];
