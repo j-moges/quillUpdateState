@@ -1,0 +1,6 @@
+<app-root
+    [getQuillContent]="getQuillContent$ | async"
+    (updateQuillContent)="updateState($event)"
+>
+</app-root>
+<router-outlet></router-outlet>
