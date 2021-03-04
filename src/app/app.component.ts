@@ -38,63 +38,65 @@ export class AppComponent implements OnInit {
   quillEditor: any;
 
   reactiveForm: FormGroup;
+  cursorPosition: any;
 
   @Input() getQuillContent: any;
 
   @Input()
   get quillContent(): any {
+    console.log('getter');
     return this.getQuillContent;
   }
-  set quillContent(content: any){
+  set quillContent(content: any) {
+    console.log('setter');
     this.reactiveForm.setValue({
       quillBody: content || ''
     });
+    // this.quillEditor.setSelection(this.cursorPosition);
   }
 
-  // @Output() setQuillContent = new EventEmitter<{bodyText: any}>();
+  @Output() updateQuillContent = new EventEmitter<{ bodyText: any }>();
 
-  @Output() updateQuillContent = new EventEmitter<{bodyText: any}>();
-
-  constructor(private fb: FormBuilder){
+  constructor(private fb: FormBuilder) {
     this.reactiveForm = fb.group({ quillBody: '' });
   }
 
   onQuillEditorCreated(editor) {
     editor.root.addEventListener("blur", () => {
-    console.log('++++++++++++++++++++++++++++++++++++++++++++');
+      // console.log('++++++++++++++++++++++++++++++++++++++++++++');
       console.log('BLURRRRRRRRRRRRR');
-      console.log('++++++++++++++++++++++++++++++++++++++++++++');
-      console.log(this.reactiveForm.getRawValue());
-      //save the cursor position before we lose it when leaving the editor
-      // this.bodyCursorPosition = this.quillEditor.getSelection();
-      const formValues = this.reactiveForm.getRawValue();
+      // console.log('++++++++++++++++++++++++++++++++++++++++++++');
+      // console.log(this.reactiveForm.getRawValue());
 
-      this.updateQuillContent.emit({bodyText: formValues.quillBody});
+      const formValues = this.reactiveForm.getRawValue();
+      this.updateQuillContent.emit({ bodyText: formValues.quillBody });
 
     }
     );
     this.quillEditor = editor;
   }
 
-  logContentChanged(editor){
-    console.log(editor);
+  logContentChanged(editor) {
+    console.log('onContentChanged');
+    // console.log(editor);
   }
 
-  logSelection(quillSelection){
-    console.log(quillSelection);
+  logSelection(quillSelection) {
+    console.log('onSelectionChanged');
+    // console.log(quillSelection);
+    this.cursorPosition = quillSelection.range;
   }
 
-  onInsertText(){
+  onInsertText() {
     const selection = this.quillEditor.getSelection();
-    this.quillEditor.insertText(selection?.index ? selection.index : 0, 'Test');
+    this.quillEditor.insertText(selection.index, 'TEST');
   }
 
-  updateState(){
-
+  updateState() {
     const formValues = this.reactiveForm.getRawValue();
-    this.updateQuillContent.emit({bodyText: formValues.quillBody});
+    this.updateQuillContent.emit({ bodyText: formValues.quillBody });
   }
 
 
-  ngOnInit(){}
+  ngOnInit() { }
 }

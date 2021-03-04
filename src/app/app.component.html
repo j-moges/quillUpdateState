@@ -5,6 +5,7 @@
       (onSelectionChanged)="logSelection($event)" 
       (onContentChanged)="logContentChanged($event)"
       [placeholder]="quillPlaceholder" 
+      [preserveWhitespace]="true"
       [modules]="quillModules" 
       [styles]="quillStyles">
     </quill-editor>

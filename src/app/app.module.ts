@@ -12,7 +12,6 @@ import { reducer } from './app.reducer';
 import { reducers } from './index.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
-// import { ComponentsModule } from './app.index.module';
 import { RouterModule } from '@angular/router';
 
 
@@ -31,9 +30,8 @@ import { RouterModule } from '@angular/router';
     StoreModule.forRoot({}),
     StoreModule.forFeature('appState', reducers),
     EffectsModule.forRoot([AppEffects]),
-    // ComponentsModule
   ],
   providers: [],
-  bootstrap: [/*AppComponent*/ AppContainerComponent]
+  bootstrap: [AppContainerComponent]
 })
 export class AppModule { }

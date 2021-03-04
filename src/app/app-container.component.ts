@@ -23,7 +23,7 @@ export class AppContainerComponent implements OnInit{
     
     updateState(content){
         console.log('update state call');
-        console.log(content);
+        // console.log(content);
         this.store.dispatch(new AppActions.UpdateState(content))
     }
 }
