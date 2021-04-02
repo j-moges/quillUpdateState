@@ -7,7 +7,7 @@ export interface State {
 }
 
 const initialState: State = {
-    quillContent: ['initial content']
+    quillContent: ['<p style="text-indent: 3em;">initial content<p>']
 }
 
 export function reducer(
